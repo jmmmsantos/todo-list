@@ -1,7 +1,5 @@
 module.exports = {
-  "transpileDependencies": [
-    "vuetify"
-  ],
+  transpileDependencies: ["vuetify"],
 
-  publicPath: '/todo-list/'
-}
+  publicPath: "/todo-list/",
+};
