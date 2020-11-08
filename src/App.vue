@@ -44,37 +44,24 @@
           @next="nextDate"
           @previous="previousDate"
         />
-        <v-menu
-          width="100vw"
-          min-width="100vw"
-          bottom
-          :close-on-content-click="addToDoMenu"
-          :offset-y="true"
-          nudge-bottom="39vh"
-          class="d-flex justify-center"
+        <v-btn
+          color="#f7ef64"
+          dark
+          absolute
+          top
+          right
+          icon
+          outlined
+          @click="addToDoDialog = !addToDoDialog"
         >
-          <template v-slot:activator="{ on, attrs }">
-            <v-btn
-              color="#f7ef64"
-              dark
-              absolute
-              top
-              right
-              icon
-              outlined
-              v-bind="attrs"
-              v-on="on"
-              @click="addToDoMenu = false"
-            >
-              <v-icon>{{ mdiPlus }}</v-icon>
-            </v-btn>
-          </template>
+          <v-icon>{{ mdiPlus }}</v-icon>
+        </v-btn>
+        <v-dialog width="100vw" max-width="500px" v-model="addToDoDialog">
           <AddToDo
             @clicked="onAddToDoList"
-            @close="closeAddToDo"
             v-bind:selectedDate="selectedDate"
           />
-        </v-menu>
+        </v-dialog>
         <v-menu
           min-width="100vw"
           bottom
@@ -173,7 +160,7 @@ export default {
 
   data: () => ({
     //
-    addToDoMenu: false,
+    addToDoDialog: false,
     instructionDialog: false,
     selectedDate: null,
     mdiPlus,
@@ -232,6 +219,7 @@ export default {
           new moment(b.date).format("YYYYMMDD")
       );
       if (this.$vuetify.breakpoint.smAndDown) {
+        this.addToDoDialog = false;
         window.scrollTo({ top: 0, behavior: "smooth" });
       }
     },
@@ -265,10 +253,6 @@ export default {
       this.instructionDialog = false;
       document.getElementsByTagName("html")[0].style.overflowY = null;
       window.scrollTo(0, 0);
-    },
-
-    closeAddToDo(state) {
-      this.addToDoMenu = state;
     },
 
     initialize() {

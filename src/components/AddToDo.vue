@@ -1,6 +1,6 @@
 <template>
   <v-container fluid class="d-flex flex-column justify-center pa-0">
-    <v-form @change="change()" ref="form" v-model="valid" lazy-validation>
+    <v-form ref="form" v-model="valid" lazy-validation>
       <v-card elevation="12" class="pa-0" color="grey darken-4" dark>
         <v-card-title class="color--card justify-center">
           <h1
@@ -15,7 +15,6 @@
             outlined
             :rules="rules"
             v-model="todo.name"
-            @blur="change()"
           ></v-text-field>
         </v-card-text>
         <v-card-actions class="justify-center pt-0">
@@ -66,10 +65,6 @@ export default {
         this.clearTodo();
         this.resetValidation();
       }
-    },
-
-    change() {
-      this.$emit("close", this.valid);
     },
   },
 
